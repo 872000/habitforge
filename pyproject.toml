@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "habitforge"
+version = "1.0.0"
+description = "HabitForge — local-first habit tracker with streaks, stats and an offline dashboard."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Parth" }]
+keywords = ["habits", "streaks", "tracker", "cli", "sqlite"]
+
+[project.scripts]
+habitforge = "habitforge.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
