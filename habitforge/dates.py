@@ -31,7 +31,9 @@ def period_start(ordinal: int, frequency: str) -> date:
     if frequency == "daily":
         return date.fromordinal(ordinal)
     if frequency == "weekly":
-        return date.fromordinal(ordinal * 7)
+        # Monday ordinals are 1 (mod 7) — 0001-01-01 was a Monday — so the
+        # inverse of period_ordinal's //7 is *7 + 1, not *7.
+        return date.fromordinal(ordinal * 7 + 1)
     raise ValueError(f"unknown frequency: {frequency!r}")
 
 
