@@ -111,6 +111,7 @@ def habit_stats(
     checkin_days: list[date],
     ref: date | None = None,
 ) -> HabitStats:
+    """Build the full stats row for one habit as of `ref` (default: today)."""
     ref = ref or d.today()
     completed = completed_periods(checkin_days, frequency, target)
     current, longest = streaks(completed, frequency, ref)
