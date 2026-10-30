@@ -54,6 +54,14 @@ class TestDailyStreaks:
         done = completed_periods(days(ref, 30), "daily", 1)
         assert streaks(done, "daily", ref) == (0, 1)
 
+    def test_future_checkin_does_not_count(self, ref):
+        # A check-in dated tomorrow has not happened yet: it must not
+        # create a streak, and it must not extend yesterday's run.
+        done = completed_periods(days(ref, 1, -1), "daily", 1)
+        assert streaks(done, "daily", ref) == (1, 1)
+        future_only = completed_periods(days(ref, -1), "daily", 1)
+        assert streaks(future_only, "daily", ref) == (0, 0)
+
 
 class TestWeeklyStreaks:
     def test_three_week_run(self, ref):

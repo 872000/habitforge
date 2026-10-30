@@ -36,6 +36,10 @@ def streaks(
     """Return (current_streak, longest_streak) for completed period ordinals."""
     ref = ref or d.today()
     current_period = d.period_ordinal(ref, frequency)
+    # Check-ins dated after `ref` have not happened yet: they must not
+    # inflate either streak, e.g. a check-in logged for tomorrow alone
+    # is a current streak of 0, not 1.
+    completed = {ordinal for ordinal in completed if ordinal <= current_period}
     if not completed:
         return (0, 0)
 
